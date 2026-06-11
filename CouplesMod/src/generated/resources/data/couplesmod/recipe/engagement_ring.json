@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "G": {
+      "item": "minecraft:gold_block"
+    }
+  },
+  "pattern": [
+    " D ",
+    "G G",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "couplesmod:engagement_ring"
+  }
+}

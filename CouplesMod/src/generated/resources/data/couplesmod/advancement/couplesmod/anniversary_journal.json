@@ -1,0 +1,33 @@
+{
+  "parent": "couplesmod:couplesmod/engagement_ring",
+  "criteria": {
+    "has_anniversary_journal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "couplesmod:anniversary_journal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.couplesmod.anniversary_journal.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "couplesmod:anniversary_journal"
+    },
+    "title": {
+      "translate": "advancements.couplesmod.anniversary_journal.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_anniversary_journal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,13 @@
+{
+  "itemGroup.leveltools": "Example Mod Tab",
+  "block.leveltools.example_block": "Example Block",
+  "item.leveltools.example_item": "Example Item",
+
+  "leveltools.configuration.title": "LevelTools Configs",
+  "leveltools.configuration.section.leveltools.common.toml": "LevelTools Configs",
+  "leveltools.configuration.section.leveltools.common.toml.title": "LevelTools Configs",
+  "leveltools.configuration.items": "Item List",
+  "leveltools.configuration.logDirtBlock": "Log Dirt Block",
+  "leveltools.configuration.magicNumberIntroduction": "Magic Number Text",
+  "leveltools.configuration.magicNumber": "Magic Number"
+}

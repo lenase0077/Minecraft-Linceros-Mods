@@ -1,0 +1,108 @@
+package com.linceros.couplesmod.client;
+
+import com.linceros.couplesmod.attachment.RelationshipData;
+import com.linceros.couplesmod.network.SendGiftPacket;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.PacketDistributor;
+import com.linceros.couplesmod.CouplesMod;
+
+public class RelationshipScreen extends Screen {
+
+    private final boolean showGiftMenu;
+    private static final ResourceLocation MENU_TEXTURE = ResourceLocation.fromNamespaceAndPath(CouplesMod.MODID, "textures/gui/couples_menu.png");
+    private final int imageWidth = 256;
+    private final int imageHeight = 256;
+
+    public RelationshipScreen(boolean showGiftMenu) {
+        super(Component.literal(showGiftMenu ? "Send Gift" : "Relationship Status"));
+        this.showGiftMenu = showGiftMenu;
+    }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
+
+    @Override
+    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        // NO HACER NADA - Desactiva cualquier blur nativo
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        
+        if (this.minecraft != null && this.minecraft.gameRenderer != null) {
+            this.minecraft.gameRenderer.shutdownEffect();
+        }
+        
+        int buttonWidth = 120;
+        int buttonHeight = 20;
+        int centerX = this.width / 2;
+        int centerY = this.height / 2;
+
+        if (this.showGiftMenu && RelationshipDataCache.status != RelationshipData.Status.NONE) {
+            this.addRenderableWidget(Button.builder(Component.literal("🎁 Send Gift"), button -> {
+                PacketDistributor.sendToServer(new SendGiftPacket());
+                this.onClose();
+            }).bounds(centerX - buttonWidth / 2, centerY + 30, buttonWidth, buttonHeight).build());
+        }
+    }
+
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        // No renderBackground call at all!
+
+        int centerX = this.width / 2;
+        int centerY = this.height / 2;
+        
+        int leftPos = (this.width - this.imageWidth) / 2;
+        int topPos = (this.height - this.imageHeight) / 2;
+
+        // Blit explicitly using 256x256 texture size to enforce 1:1 mapping
+        guiGraphics.blit(MENU_TEXTURE, leftPos, topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+        
+        // Draw widgets on top of background
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+
+        if (RelationshipDataCache.status == RelationshipData.Status.NONE) {
+            guiGraphics.drawCenteredString(this.font, "§7You are currently single.", centerX, centerY - 10, 0xFFFFFF);
+            
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().scale(0.8f, 0.8f, 0.8f);
+            guiGraphics.drawCenteredString(this.font, "Craft a bouquet and right-click", (int)(centerX / 0.8f), (int)((centerY + 15) / 0.8f), 0xAAAAAA);
+            guiGraphics.drawCenteredString(this.font, "someone to start dating!", (int)(centerX / 0.8f), (int)((centerY + 30) / 0.8f), 0xAAAAAA);
+            guiGraphics.pose().popPose();
+        } else {
+            String statusText = RelationshipDataCache.status == RelationshipData.Status.MARRIED ? "§b✨ Married ✨" : "§d💕 Dating 💕";
+            guiGraphics.drawCenteredString(this.font, statusText, centerX, centerY - 30, 0xFFFFFF);
+            
+            String partnerName = "Offline Partner";
+            if (this.minecraft != null && this.minecraft.level != null && RelationshipDataCache.partnerUuid != null) {
+                net.minecraft.world.entity.player.Player partner = this.minecraft.level.getPlayerByUUID(RelationshipDataCache.partnerUuid);
+                if (partner != null) {
+                    partnerName = partner.getName().getString();
+                }
+            }
+            guiGraphics.drawCenteredString(this.font, "Partner: §e" + partnerName, centerX, centerY - 10, 0xFFFFFF);
+            
+            int currentLevel = RelationshipDataCache.level;
+            int currentXp = RelationshipDataCache.xp;
+            int requiredXp = currentLevel * 100;
+            String levelText = "§eLevel " + currentLevel + " §8(§7" + currentXp + " / " + requiredXp + " XP§8)";
+            guiGraphics.drawCenteredString(this.font, levelText, centerX, centerY + 10, 0xFFFFFF);
+            
+            if (this.showGiftMenu) {
+                guiGraphics.pose().pushPose();
+                guiGraphics.pose().scale(0.8f, 0.8f, 0.8f);
+                guiGraphics.drawCenteredString(this.font, "Hold an item and click 'Send Gift'", (int)(centerX / 0.8f), (int)((centerY + 25) / 0.8f), 0xAAAAAA);
+                guiGraphics.drawCenteredString(this.font, "to give it to your partner!", (int)(centerX / 0.8f), (int)((centerY + 35) / 0.8f), 0xAAAAAA);
+                guiGraphics.pose().popPose();
+            }
+        }
+    }
+}

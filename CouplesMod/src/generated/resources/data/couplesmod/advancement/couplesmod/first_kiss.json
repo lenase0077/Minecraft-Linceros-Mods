@@ -1,0 +1,26 @@
+{
+  "parent": "couplesmod:couplesmod/root",
+  "criteria": {
+    "kissed_partner": {
+      "trigger": "couplesmod:kiss_partner"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.couplesmod.first_kiss.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "couplesmod:heart_icon"
+    },
+    "title": {
+      "translate": "advancements.couplesmod.first_kiss.title"
+    }
+  },
+  "requirements": [
+    [
+      "kissed_partner"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

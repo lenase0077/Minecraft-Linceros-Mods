@@ -1,0 +1,49 @@
+{
+  "criteria": {
+    "has_bouquet": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "couplesmod:dandelion_bouquet",
+              "couplesmod:poppy_bouquet",
+              "couplesmod:blue_orchid_bouquet",
+              "couplesmod:allium_bouquet",
+              "couplesmod:red_tulip_bouquet",
+              "couplesmod:orange_tulip_bouquet",
+              "couplesmod:white_tulip_bouquet",
+              "couplesmod:pink_tulip_bouquet",
+              "couplesmod:oxeye_daisy_bouquet",
+              "couplesmod:cornflower_bouquet",
+              "couplesmod:lily_of_the_valley_bouquet",
+              "couplesmod:wither_rose_bouquet",
+              "couplesmod:sunflower_bouquet",
+              "couplesmod:lilac_bouquet",
+              "couplesmod:rose_bush_bouquet"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.couplesmod.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "couplesmod:rose_bush_bouquet"
+    },
+    "title": {
+      "translate": "advancements.couplesmod.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_bouquet"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

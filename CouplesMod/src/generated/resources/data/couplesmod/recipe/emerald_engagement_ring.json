@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "G": {
+      "item": "minecraft:gold_block"
+    }
+  },
+  "pattern": [
+    " E ",
+    "G G",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "couplesmod:emerald_engagement_ring"
+  }
+}

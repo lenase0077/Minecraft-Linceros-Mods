@@ -1,0 +1,38 @@
+{
+  "parent": "couplesmod:couplesmod/root",
+  "criteria": {
+    "has_engagement_ring": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "couplesmod:engagement_ring",
+              "couplesmod:iron_engagement_ring",
+              "couplesmod:gold_engagement_ring",
+              "couplesmod:emerald_engagement_ring"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.couplesmod.engagement_ring.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "couplesmod:engagement_ring"
+    },
+    "title": {
+      "translate": "advancements.couplesmod.engagement_ring.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_engagement_ring"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
