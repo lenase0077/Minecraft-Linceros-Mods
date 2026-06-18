@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "com.linceros.couplesmod.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"EatingMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

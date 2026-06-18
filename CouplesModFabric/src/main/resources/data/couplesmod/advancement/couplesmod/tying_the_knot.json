@@ -1,0 +1,27 @@
+{
+  "parent": "couplesmod:couplesmod/engagement_ring",
+  "criteria": {
+    "got_married": {
+      "trigger": "couplesmod:get_married"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.couplesmod.tying_the_knot.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "couplesmod:gold_engagement_ring"
+    },
+    "title": {
+      "translate": "advancements.couplesmod.tying_the_knot.title"
+    }
+  },
+  "requirements": [
+    [
+      "got_married"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

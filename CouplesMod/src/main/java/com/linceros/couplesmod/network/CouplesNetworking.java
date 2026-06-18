@@ -23,11 +23,5 @@ public class CouplesNetworking {
                 SendGiftPacket.STREAM_CODEC,
                 PacketHandlers::handleGift
         );
-
-        registrar.playToServer(
-                PushGlobalDataPacket.TYPE,
-                PushGlobalDataPacket.STREAM_CODEC,
-                PacketHandlers::handlePushData
-        );
     }
 }

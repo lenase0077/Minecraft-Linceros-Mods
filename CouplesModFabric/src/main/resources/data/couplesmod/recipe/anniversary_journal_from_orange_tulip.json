@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "F": {
+      "item": "minecraft:orange_tulip"
+    }
+  },
+  "pattern": [
+    "FFF",
+    "FBF",
+    "FFF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "couplesmod:anniversary_journal"
+  }
+}

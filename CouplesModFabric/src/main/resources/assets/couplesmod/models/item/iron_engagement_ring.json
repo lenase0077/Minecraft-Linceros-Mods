@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "couplesmod:item/iron_engagement_ring"
+  }
+}

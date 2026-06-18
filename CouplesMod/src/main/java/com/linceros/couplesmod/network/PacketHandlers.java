@@ -20,28 +20,10 @@ public class PacketHandlers {
             RelationshipDataCache.kisses = payload.kisses();
             RelationshipDataCache.gifts = payload.gifts();
             RelationshipDataCache.sharedBeds = payload.sharedBeds();
-            
-            // Save to global file on client
-            RelationshipData data = new RelationshipData(payload.status(), payload.partnerUuid(), payload.level(), payload.xp(), payload.lastGiftTime(), payload.lastKissTime(), payload.startDate(), payload.kisses(), payload.gifts(), payload.sharedBeds());
-            com.linceros.couplesmod.client.GlobalRelationshipManager.saveGlobalData(data);
         });
     }
 
-    public static void handlePushData(PushGlobalDataPacket payload, IPayloadContext context) {
-        context.enqueueWork(() -> {
-            if (context.player() instanceof ServerPlayer sp) {
-                if (payload.status() != RelationshipData.Status.NONE) {
-                    RelationshipData newData = new RelationshipData(
-                            payload.status(), payload.partnerUuid(), payload.level(), payload.xp(), payload.lastGiftTime(), payload.lastKissTime(), payload.startDate(), payload.kisses(), payload.gifts(), payload.sharedBeds()
-                    );
-                    sp.setData(CouplesAttachments.RELATIONSHIP, newData);
-                    PacketDistributor.sendToPlayer(sp, new SyncRelationshipPacket(
-                            newData.status(), newData.partnerUuid(), newData.level(), newData.xp(), newData.lastGiftTime(), newData.lastKissTime(), newData.startDate(), newData.kisses(), newData.gifts(), newData.sharedBeds()
-                    ));
-                }
-            }
-        });
-    }
+
 
     public static void handleGift(SendGiftPacket payload, IPayloadContext context) {
         context.enqueueWork(() -> {

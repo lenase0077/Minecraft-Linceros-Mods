@@ -3,23 +3,23 @@ package com.linceros.couplesmod.network;
 import com.linceros.couplesmod.CouplesMod;
 import com.linceros.couplesmod.attachment.RelationshipData;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-
 import java.util.Optional;
 import java.util.UUID;
 
-public record PushGlobalDataPacket(RelationshipData.Status status, Optional<UUID> partnerUuid, int level, int xp, long lastGiftTime, long lastKissTime, long startDate, int kisses, int gifts, int sharedBeds) implements CustomPacketPayload {
-    public static final Type<PushGlobalDataPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(CouplesMod.MODID, "push_global_data"));
+public record SyncRelationshipPacket(RelationshipData.Status status, Optional<UUID> partnerUuid, int level, int xp, long lastGiftTime, long lastKissTime, long startDate, int kisses, int gifts, int sharedBeds) implements CustomPacketPayload {
+    public static final Type<SyncRelationshipPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(CouplesMod.MODID, "sync_relationship"));
 
-    public static final StreamCodec<FriendlyByteBuf, PushGlobalDataPacket> STREAM_CODEC = StreamCodec.of(
+    public static final StreamCodec<FriendlyByteBuf, SyncRelationshipPacket> STREAM_CODEC = StreamCodec.of(
             (buf, packet) -> packet.write(buf),
-            PushGlobalDataPacket::new
+            SyncRelationshipPacket::new
     );
 
-    public PushGlobalDataPacket(FriendlyByteBuf buf) {
-        this(buf.readEnum(RelationshipData.Status.class),
+    public SyncRelationshipPacket(FriendlyByteBuf buf) {
+        this(buf.readEnum(RelationshipData.Status.class), 
              buf.readBoolean() ? Optional.of(buf.readUUID()) : Optional.empty(),
              buf.readInt(), buf.readInt(), buf.readLong(), buf.readLong(), buf.readLong(), buf.readInt(), buf.readInt(), buf.readInt());
     }

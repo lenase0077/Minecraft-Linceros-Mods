@@ -63,9 +63,42 @@ Being in a relationship isn't just for show; it provides tangible survival benef
 ## 📖 Items & Controls
 
 ### Items
-*   **Bouquets:** Crafted from various flowers. Used to initiate dating.
-*   **Engagement Rings:** Crafted from precious metals and gems. Used to propose marriage.
-*   **Anniversary Journal:** A special journal to keep track of your relationship journey.
+
+#### 💐 Bouquets
+Bouquets are your way of saying "I like you". They are used to initiate a relationship with another player.
+
+| Icon | Item Name | How to obtain | Function |
+| :---: | :--- | :--- | :--- |
+| ![Icon](url_here) | **Allium Bouquet** | 9x Allium | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Blue Orchid Bouquet** | 9x Blue Orchid | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Cornflower Bouquet** | 9x Cornflower | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Dandelion Bouquet** | 9x Dandelion | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Lilac Bouquet** | 9x Lilac | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Lily of the Valley Bouquet** | 9x Lily of the Valley | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Orange Tulip Bouquet** | 9x Orange Tulip | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Oxeye Daisy Bouquet** | 9x Oxeye Daisy | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Pink Tulip Bouquet** | 9x Pink Tulip | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Poppy Bouquet** | 9x Poppy | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Red Tulip Bouquet** | 9x Red Tulip | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Rose Bush Bouquet** | 9x Rose Bush | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Sunflower Bouquet** | 9x Sunflower | Right-click a player to ask them out! |
+| ![Icon](url_here) | **White Tulip Bouquet** | 9x White Tulip | Right-click a player to ask them out! |
+| ![Icon](url_here) | **Wither Rose Bouquet** | 9x Wither Rose | Right-click a player to ask them out! |
+
+#### 💍 Engagement Rings
+The ultimate symbol of love. You can only propose marriage once you reach **Level 10**!
+
+| Icon | Ring Type | Crafting Materials | Rarity | Effect |
+| :---: | :--- | :--- | :--- | :--- |
+| ![Icon](url_here) | **Iron Engagement Ring** | Iron Ingots + Diamond | Common | Unlocks Marriage & Shared Buffs |
+| ![Icon](url_here) | **Gold Engagement Ring** | Gold Ingots + Diamond | Uncommon | Unlocks Marriage & Shared Buffs |
+| ![Icon](url_here) | **Diamond Engagement Ring** | Diamonds + Diamond | Rare | Unlocks Marriage & Shared Buffs |
+| ![Icon](url_here) | **Emerald Engagement Ring** | Emeralds + Diamond | Epic | Unlocks Marriage & Shared Buffs |
+
+#### 📓 Special Items
+| Icon | Item Name | Description |
+| :---: | :--- | :--- |
+| ![Icon](url_here) | **Anniversary Journal** | Automatically granted when you start dating. Tracks your level, days together, kisses, and gifts exchanged! |
 
 ### Controls
 *   **`G` (Default):** Opens the Relationship Screen. Here you can see your current status (Dating/Married), your partner's name, your relationship level, and fun stats like total kisses and nights slept together.
@@ -84,3 +117,10 @@ Being in a relationship isn't just for show; it provides tangible survival benef
 ## 🛠️ Modpack Permissions
 
 You are completely free to include Couples Mod in your modpacks! Credit is appreciated but not required.
+
+---
+
+## 💖 Credits
+
+A massive thank you to my sister, **Anahí**, for her incredible help with all the beautiful designs and textures in this mod!
+You can check out more of her amazing work here: [@anahss7 on Instagram](https://www.instagram.com/anahss7/)

@@ -14,7 +14,6 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.network.PacketDistributor;
 import com.linceros.couplesmod.attachment.RelationshipData;
-import com.linceros.couplesmod.network.PushGlobalDataPacket;
 import com.linceros.couplesmod.init.CouplesParticles;
 import com.linceros.couplesmod.client.particle.HeartParticle;
 
@@ -61,16 +60,6 @@ class ClientGameEvents {
     }
 
     @SubscribeEvent
-    public static void onClientJoin(ClientPlayerNetworkEvent.LoggingIn event) {
-        RelationshipData globalData = GlobalRelationshipManager.loadGlobalData();
-        if (globalData.status() != RelationshipData.Status.NONE) {
-            PacketDistributor.sendToServer(new PushGlobalDataPacket(
-                    globalData.status(), globalData.partnerUuid(), globalData.level(), globalData.xp(), globalData.lastGiftTime(), globalData.lastKissTime(), globalData.startDate(), globalData.kisses(), globalData.gifts(), globalData.sharedBeds()
-            ));
-        }
-    }
-
-    @SubscribeEvent
     public static void onRenderNameTag(net.neoforged.neoforge.client.event.RenderNameTagEvent event) {
         if (event.getEntity() instanceof net.minecraft.world.entity.player.Player targetPlayer) {
             if (RelationshipDataCache.status != RelationshipData.Status.NONE && RelationshipDataCache.partnerUuid != null) {
@@ -86,6 +75,7 @@ class ClientGameEvents {
                     net.minecraft.network.chat.Component text = net.minecraft.network.chat.Component.literal("§d💕");
                     float offset = (float)(-Minecraft.getInstance().font.width(text) / 2);
                     
+                    
                     Minecraft.getInstance().font.drawInBatch(
                         text, offset, 0f, 0xFFFFFF, false, poseStack.last().pose(), event.getMultiBufferSource(),
                         net.minecraft.client.gui.Font.DisplayMode.SEE_THROUGH, 0, event.getPackedLight()
@@ -93,6 +83,31 @@ class ClientGameEvents {
                     
                     poseStack.popPose();
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRightClickItem(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem event) {
+        if (event.getLevel().isClientSide() && event.getItemStack().getItem() == com.linceros.couplesmod.init.CouplesItems.ANNIVERSARY_JOURNAL.get()) {
+            RelationshipData data = RelationshipDataCache.status != RelationshipData.Status.NONE 
+                ? new RelationshipData(
+                    RelationshipDataCache.status, 
+                    java.util.Optional.ofNullable(RelationshipDataCache.partnerUuid), 
+                    RelationshipDataCache.level, 
+                    RelationshipDataCache.xp, 
+                    RelationshipDataCache.lastGiftTime, 
+                    RelationshipDataCache.lastKissTime, 
+                    RelationshipDataCache.startDate, 
+                    RelationshipDataCache.kisses, 
+                    RelationshipDataCache.gifts, 
+                    RelationshipDataCache.sharedBeds) 
+                : RelationshipData.EMPTY;
+            
+            if (data.status() != RelationshipData.Status.NONE) {
+                Minecraft.getInstance().setScreen(new JournalScreen(data));
+            } else {
+                event.getEntity().displayClientMessage(net.minecraft.network.chat.Component.literal("§cYou are not in a relationship yet!"), true);
             }
         }
     }
