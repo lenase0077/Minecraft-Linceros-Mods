@@ -15,9 +15,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class EatingMixin {
-    @Inject(method = "eat", at = @At("RETURN"))
-    private void couplesmod$onEat(Level level, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+    @Inject(method = "completeUsingItem", at = @At("HEAD"))
+    private void couplesmod$onEat(org.spongepowered.asm.mixin.injection.callback.CallbackInfo ci) {
         if ((Object) this instanceof Player player) {
+            ItemStack stack = player.getUseItem();
             if (stack.has(CouplesComponents.GIFTED_FOOD)) {
                 net.minecraft.world.food.FoodProperties food = stack.get(net.minecraft.core.component.DataComponents.FOOD);
                 if (food != null) {
