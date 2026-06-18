@@ -6,15 +6,15 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import java.util.Optional;
 import java.util.UUID;
 
 public record SyncRelationshipPacket(RelationshipData.Status status, Optional<UUID> partnerUuid, int level, int xp, long lastGiftTime, long lastKissTime, long startDate, int kisses, int gifts, int sharedBeds) implements CustomPacketPayload {
-    public static final Type<SyncRelationshipPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(CouplesMod.MODID, "sync_relationship"));
+    public static final Type<SyncRelationshipPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath(CouplesMod.MODID, "sync_relationship"));
 
-    public static final StreamCodec<FriendlyByteBuf, SyncRelationshipPacket> STREAM_CODEC = StreamCodec.of(
-            (buf, packet) -> packet.write(buf),
+    public static final StreamCodec<FriendlyByteBuf, SyncRelationshipPacket> STREAM_CODEC = StreamCodec.ofMember(
+            SyncRelationshipPacket::write,
             SyncRelationshipPacket::new
     );
 

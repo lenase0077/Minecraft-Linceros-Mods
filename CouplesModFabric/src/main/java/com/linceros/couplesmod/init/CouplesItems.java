@@ -4,11 +4,11 @@ import com.linceros.couplesmod.CouplesMod;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class CouplesItems {
     public static Item register(String id, Item item) {
-        return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(CouplesMod.MODID, id), item);
+        return Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(CouplesMod.MODID, id), item);
     }
 
     public static final Item ENGAGEMENT_RING = register("engagement_ring", new com.linceros.couplesmod.item.EngagementRingItem(new Item.Properties().stacksTo(1)));

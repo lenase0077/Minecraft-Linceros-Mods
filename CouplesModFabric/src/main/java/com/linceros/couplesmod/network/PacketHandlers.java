@@ -17,7 +17,7 @@ public class PacketHandlers {
             if (sender != null) {
                 RelationshipData data = sender.getAttachedOrCreate(CouplesAttachments.RELATIONSHIP);
                 if (data.status() != RelationshipData.Status.NONE && data.partnerUuid().isPresent()) {
-                    ServerPlayer partner = sender.server.getPlayerList().getPlayer(data.partnerUuid().get());
+                    ServerPlayer partner = ((net.minecraft.server.level.ServerLevel) sender.level()).getServer().getPlayerList().getPlayer(data.partnerUuid().get());
                     if (partner != null) {
                         ItemStack gift = sender.getMainHandItem();
                         if (gift.isEmpty()) {
@@ -79,8 +79,12 @@ public class PacketHandlers {
                             if (leveledUp) {
                                 sender.sendSystemMessage(Component.literal("§d💕 Your relationship leveled up to " + newLevel + "! 💕"));
                                 partner.sendSystemMessage(Component.literal("§d💕 Your relationship leveled up to " + newLevel + "! 💕"));
-                                sender.serverLevel().playSound(null, sender.blockPosition(), net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP, net.minecraft.sounds.SoundSource.PLAYERS, 1.0f, 1.0f);
-                                partner.serverLevel().playSound(null, partner.blockPosition(), net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP, net.minecraft.sounds.SoundSource.PLAYERS, 1.0f, 1.0f);
+                                if (sender.level() instanceof net.minecraft.server.level.ServerLevel serverLevelSender) {
+                                    serverLevelSender.playSound(null, sender.blockPosition(), net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP, net.minecraft.sounds.SoundSource.PLAYERS, 1.0f, 1.0f);
+                                }
+                                if (partner.level() instanceof net.minecraft.server.level.ServerLevel serverLevelPartner) {
+                                    serverLevelPartner.playSound(null, partner.blockPosition(), net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP, net.minecraft.sounds.SoundSource.PLAYERS, 1.0f, 1.0f);
+                                }
                             }
                         } else {
                             sender.sendSystemMessage(Component.literal("§c" + partner.getName().getString() + "'s inventory is full! Could not send gift."));

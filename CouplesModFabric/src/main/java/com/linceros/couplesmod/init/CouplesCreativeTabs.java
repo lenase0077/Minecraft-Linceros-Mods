@@ -1,19 +1,19 @@
 package com.linceros.couplesmod.init;
 
 import com.linceros.couplesmod.CouplesMod;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 
 public class CouplesCreativeTabs {
 
     public static final CreativeModeTab COUPLES_TAB = Registry.register(
             BuiltInRegistries.CREATIVE_MODE_TAB,
-            ResourceLocation.fromNamespaceAndPath(CouplesMod.MODID, "couples_tab"),
-            FabricItemGroup.builder()
+            Identifier.fromNamespaceAndPath(CouplesMod.MODID, "couples_tab"),
+            FabricCreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.couplesmod"))
                     .icon(() -> CouplesItems.ENGAGEMENT_RING.getDefaultInstance())
                     .displayItems((parameters, output) -> {

@@ -3,18 +3,18 @@ package com.linceros.couplesmod.client.particle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
-public class HeartParticle extends TextureSheetParticle {
+public class HeartParticle extends SingleQuadParticle {
     private final SpriteSet sprites;
 
     protected HeartParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet sprites) {
-        super(level, x, y, z, xSpeed, ySpeed, zSpeed);
+        super(level, x, y, z, xSpeed, ySpeed, zSpeed, null);
         this.sprites = sprites;
         // Add random spread
         this.xd = xSpeed + (this.random.nextFloat() - 0.5F) * 0.15F;
@@ -30,11 +30,10 @@ public class HeartParticle extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    public SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.TRANSLUCENT;
     }
 
-    @Override
     public void tick() {
         super.tick();
         this.setSpriteFromAge(this.sprites);
@@ -50,7 +49,7 @@ public class HeartParticle extends TextureSheetParticle {
         }
 
         @Override
-        public net.minecraft.client.particle.Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public net.minecraft.client.particle.Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, net.minecraft.util.RandomSource random) {
             return new HeartParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, this.sprites);
         }
     }

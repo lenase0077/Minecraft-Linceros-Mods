@@ -20,7 +20,7 @@ public class CouplesCommands {
     public static void initialize() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(Commands.literal("couples")
-                .requires(source -> source.hasPermission(2))
+                .requires(source -> source.permissions().hasPermission(net.minecraft.server.permissions.Permissions.COMMANDS_GAMEMASTER))
                 .then(Commands.literal("setlevel")
                         .then(Commands.argument("level", IntegerArgumentType.integer(1))
                                 .executes(ctx -> setLevel(ctx, IntegerArgumentType.getInteger(ctx, "level"), ctx.getSource().getPlayerOrException()))
@@ -90,7 +90,7 @@ public class CouplesCommands {
         RelationshipData data = target.getAttachedOrCreate(CouplesAttachments.RELATIONSHIP);
         if (data.partnerUuid().isPresent()) {
             java.util.UUID partnerUuid = data.partnerUuid().get();
-            ServerPlayer partner = (ServerPlayer) target.serverLevel().getPlayerByUUID(partnerUuid);
+            ServerPlayer partner = ((net.minecraft.server.level.ServerLevel) target.level()).getServer().getPlayerList().getPlayer(partnerUuid);
             if (partner != null) {
                 partner.setAttached(CouplesAttachments.RELATIONSHIP, RelationshipData.EMPTY);
                 sync(partner, RelationshipData.EMPTY);

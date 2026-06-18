@@ -9,14 +9,14 @@ import com.linceros.couplesmod.attachment.RelationshipData;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import org.lwjgl.glfw.GLFW;
 
@@ -25,11 +25,11 @@ public class CouplesModClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        openRelationshipGui = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+        openRelationshipGui = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.couplesmod.open_gui",
                 InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_G,
-                "key.categories.couplesmod"
+                KeyMapping.Category.MISC
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -47,7 +47,7 @@ public class CouplesModClient implements ClientModInitializer {
             }
         });
 
-        ParticleFactoryRegistry.getInstance().register(CouplesParticles.HEART_PARTICLE, HeartParticle.Provider::new);
+        ParticleProviderRegistry.getInstance().register(CouplesParticles.HEART_PARTICLE, HeartParticle.Provider::new);
 
         ClientPlayNetworking.registerGlobalReceiver(SyncRelationshipPacket.TYPE, ClientPacketHandlers::handleSync);
 
@@ -70,12 +70,14 @@ public class CouplesModClient implements ClientModInitializer {
                 
                 if (data.status() != RelationshipData.Status.NONE) {
                     Minecraft.getInstance().setScreen(new JournalScreen(data));
-                } else {
-                    player.displayClientMessage(Component.literal("§cYou are not in a relationship yet!"), true);
                 }
-                return InteractionResultHolder.sidedSuccess(stack, true);
+                if (RelationshipDataCache.status == RelationshipData.Status.NONE) {
+                    player.sendSystemMessage(Component.literal("§cYou are not in a relationship yet!"));
+                } else {
+                    return InteractionResult.SUCCESS;
+                }
             }
-            return InteractionResultHolder.pass(stack);
+            return InteractionResult.PASS;
         });
     }
 }

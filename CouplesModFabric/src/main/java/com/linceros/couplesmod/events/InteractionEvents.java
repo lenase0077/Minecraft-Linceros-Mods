@@ -168,7 +168,7 @@ public class InteractionEvents {
 
                 // Kiss!
                 spawnHearts(serverLevel, player, targetPlayer, 3);
-                serverLevel.playSound(null, player.blockPosition(), SoundEvents.CAT_PURREOW, SoundSource.PLAYERS, 1.0f, 1.0f);
+                serverLevel.playSound(null, player.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0f, 1.0f);
                 CouplesTriggers.KISS_PARTNER.trigger((net.minecraft.server.level.ServerPlayer) player);
                 CouplesTriggers.KISS_PARTNER.trigger((net.minecraft.server.level.ServerPlayer) targetPlayer);
                 return InteractionResult.SUCCESS;
@@ -235,14 +235,14 @@ public class InteractionEvents {
         if (rel.status() == RelationshipData.Status.MARRIED && rel.partnerUuid().isPresent()) {
             java.util.UUID partnerUuid = rel.partnerUuid().get();
             // Check for partner within 32 blocks
-            java.util.List<net.minecraft.server.level.ServerPlayer> players = player.serverLevel().getPlayers(p -> 
+            java.util.List<net.minecraft.server.level.ServerPlayer> players = ((net.minecraft.server.level.ServerLevel)player.level()).getPlayers(p -> 
                 p.getUUID().equals(partnerUuid) && p.distanceTo(player) <= 32.0D
             );
             if (!players.isEmpty()) {
                 // Apply effects for 15 seconds (300 ticks)
-                player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 300, 1, false, false, true)); // Haste 2
+                player.addEffect(new MobEffectInstance(MobEffects.HASTE, 300, 1, false, false, true)); // Haste 2
                 player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 300, 0, false, false, true)); // Regen 1
-                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 0, false, false, true)); // Speed 1
+                player.addEffect(new MobEffectInstance(MobEffects.SPEED, 300, 0, false, false, true)); // Speed 1
                 player.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 300, 1, false, false, true)); // Health Boost 2
                 player.addEffect(new MobEffectInstance(MobEffects.LUCK, 300, 0, false, false, true)); // Luck 1
             }
@@ -250,9 +250,9 @@ public class InteractionEvents {
     }
 
     private static void onPlayerWakeUp(net.minecraft.server.level.ServerPlayer player) {
-        ServerLevel level = player.serverLevel();
+        ServerLevel level = (ServerLevel) player.level();
         // Check if they woke up successfully (morning time)
-        if (level.isDay()) {
+        if (level.getOverworldClockTime() % 24000L < 12000L) {
             RelationshipData rel = player.getAttachedOrCreate(CouplesAttachments.RELATIONSHIP);
             if (rel.status() != RelationshipData.Status.NONE && rel.partnerUuid().isPresent()) {
                 java.util.UUID partnerUuid = rel.partnerUuid().get();

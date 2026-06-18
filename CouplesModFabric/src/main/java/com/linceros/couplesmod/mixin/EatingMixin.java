@@ -24,7 +24,7 @@ public abstract class EatingMixin {
                     float extraSaturation = food.nutrition() * food.saturation() * 2.0f * 0.5f;
                     player.getFoodData().setSaturation(Math.min(player.getFoodData().getSaturationLevel() + extraSaturation, player.getFoodData().getFoodLevel()));
                     
-                    if (!player.level().isClientSide) {
+                    if (!player.level().isClientSide()) {
                         player.sendSystemMessage(Component.literal("§d💝 You ate a delicious gift! 💝"));
                         player.level().playSound(null, player.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
                     }          

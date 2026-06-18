@@ -23,7 +23,7 @@ public abstract class EntityRendererMixin<T extends net.minecraft.world.entity.E
                 if (targetPlayer.getUUID().equals(RelationshipDataCache.partnerUuid)) {
                     poseStack.pushPose();
                     poseStack.translate(0.0D, targetPlayer.getBbHeight() + 0.8D, 0.0D);
-                    poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
+                    poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().camera.rotation());
                     poseStack.scale(-0.025F, -0.025F, 0.025F);
                     
                     Component text = Component.literal("§d💕");
