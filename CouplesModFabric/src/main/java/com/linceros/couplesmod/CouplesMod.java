@@ -18,6 +18,7 @@ public class CouplesMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        eu.midnightdust.lib.config.MidnightConfig.init("couplesmod", CouplesModConfig.class);
         CouplesComponents.initialize();
         CouplesAttachments.initialize();
         CouplesItems.initialize();

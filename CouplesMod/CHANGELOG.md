@@ -1,5 +1,13 @@
 # Couples Mod - Changelog
 
+## [1.0.3] - 2026-06-19
+
+### ✨ New Features
+* **Configurable Effects**: Marriage and dating effects (like Haste, Speed, Regeneration) are no longer hardcoded! You can now freely configure, add, or disable these buffs. On NeoForge, edit the `couplesmod-common.toml` config file. On Fabric, the mod now fully integrates with **MidnightLib** and **ModMenu**, meaning you can configure all effects directly from an intuitive in-game menu!
+* **Spanish Translation**: Added support for Spanish (`es_es`). Currently, all items and advancements are translated. 🇪🇸🇦🇷🇲🇽
+
+### ⚙️ Under the Hood
+* Ported to Minecraft 26.1.2 (NeoForge & Fabric).
 ## [1.0.1] - 2026-06-14
 
 ### 🐛 Bug Fixes
