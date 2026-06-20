@@ -30,5 +30,11 @@
   "item.couplesmod.sunflower_bouquet": "Sunflower Bouquet",
   "item.couplesmod.lilac_bouquet": "Lilac Bouquet",
   "item.couplesmod.rose_bush_bouquet": "Rose Bush Bouquet",
-  "item.couplesmod.anniversary_journal": "Anniversary Journal"
+  "item.couplesmod.anniversary_journal": "Anniversary Journal",
+  "couplesmod.midnightconfig.title": "Couples Mod Configuration",
+  "couplesmod.midnightconfig.marriageProximityEffects": "Marriage Proximity Effects",
+  "couplesmod.midnightconfig.marriageProximityEffects.tooltip": "List of effects applied to married players near each other. Format: id;duration;amplifier",
+  "couplesmod.midnightconfig.sharedBedEffects": "Shared Bed Effects",
+  "couplesmod.midnightconfig.sharedBedEffects.tooltip": "List of effects applied when waking up near partner. Format: id;duration;amplifier",
+  "couplesmod.midnightconfig.category.effects": "Relationship Effects"
 }
