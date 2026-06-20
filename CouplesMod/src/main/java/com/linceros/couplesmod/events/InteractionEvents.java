@@ -235,11 +235,7 @@ public class InteractionEvents {
             );
             if (!players.isEmpty()) {
                 // Apply effects for 15 seconds (300 ticks)
-                player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 300, 1, false, false, true)); // Haste 2
-                player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 300, 0, false, false, true)); // Regen 1
-                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 0, false, false, true)); // Speed 1
-                player.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 300, 1, false, false, true)); // Health Boost 2
-                player.addEffect(new MobEffectInstance(MobEffects.LUCK, 300, 0, false, false, true)); // Luck 1
+                applyConfigEffects(player, com.linceros.couplesmod.CouplesModConfig.MARRIAGE_PROXIMITY_EFFECTS.get());
             }
         }
     }
@@ -258,8 +254,7 @@ public class InteractionEvents {
                         // Check if partner is also waking up / recently slept and is within 10 blocks
                         if (partner.distanceTo(player) <= 10.0D) {
                             // Apply buff to the player who triggered the event (the partner's event will also fire)
-                            player.addEffect(new MobEffectInstance(MobEffects.SATURATION, 12000, 0, false, false, true)); // 10 minutes
-                            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 12000, 0, false, false, true)); // 10 minutes
+                            applyConfigEffects(player, com.linceros.couplesmod.CouplesModConfig.SHARED_BED_EFFECTS.get());
                             
                             // Only increment sharedBeds once per night, but since both wake up, 
                             // we'll let each increment their own stat. Wait, they share stats? 
@@ -334,6 +329,23 @@ public class InteractionEvents {
             PacketDistributor.sendToPlayer(sp, new SyncRelationshipPacket(
                 data.status(), data.partnerUuid(), data.level(), data.xp(), data.lastGiftTime(), data.lastKissTime(), data.startDate(), data.kisses(), data.gifts(), data.sharedBeds()
             ));
+        }
+    }
+
+    private static void applyConfigEffects(net.minecraft.world.entity.player.Player player, java.util.List<? extends String> effectStrings) {
+        for (String effectString : effectStrings) {
+            String[] parts = effectString.split(";");
+            if (parts.length >= 1) {
+                net.minecraft.resources.ResourceLocation effectId = net.minecraft.resources.ResourceLocation.tryParse(parts[0]);
+                if (effectId != null) {
+                    java.util.Optional<net.minecraft.core.Holder.Reference<net.minecraft.world.effect.MobEffect>> effectOpt = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.getHolder(effectId);
+                    if (effectOpt.isPresent()) {
+                        int duration = parts.length > 1 ? Integer.parseInt(parts[1]) : 300;
+                        int amplifier = parts.length > 2 ? Integer.parseInt(parts[2]) : 0;
+                        player.addEffect(new net.minecraft.world.effect.MobEffectInstance(effectOpt.get(), duration, amplifier, false, false, true));
+                    }
+                }
+            }
         }
     }
 }

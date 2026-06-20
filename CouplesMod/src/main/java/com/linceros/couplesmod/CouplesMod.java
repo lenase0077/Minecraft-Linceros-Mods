@@ -28,6 +28,8 @@ public class CouplesMod {
 
         modEventBus.addListener(this::commonSetup);
         
+        modContainer.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON, CouplesModConfig.SPEC);
+        
         LOGGER.info("Couples Mod Initialized!");
     }
 
